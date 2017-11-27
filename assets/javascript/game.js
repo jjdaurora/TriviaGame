@@ -1,4 +1,4 @@
-//create object of all game questions and answers
+// create object of all game questions and answers
 
 var triviaQuestions = [
 
@@ -49,8 +49,9 @@ function start (){
 	 	// ISSUE: counter is actually taking 2 seconds on the first increment down
 	 	$("#timer").html(counter);
 		counter--;
+
 	
-	 	if (counter <= 0) {
+	 	if (counter <+ 0) {
 				$("#timer").html("Time's up!");
 			} 
 
@@ -82,24 +83,28 @@ function displayGame () {
 			$('#game-message').text("Wrong Answer!");
 			clearInterval(counter);
 			$("#timer").hide();
-			// var roundButton = $("<button>"); 
-			// roundButton.attr("id", "round-button");
-			// $("#round-button").html(roundButton);
+			var roundButton = $("<button>");
+			roundButton.text('Play next round?')
+			$("#game-message").append(roundButton);
+			
 			}
 
 			else if (userPick === triviaQuestions[0].correct) {
 			$('#game-message').text("Correct!");
 			clearInterval(counter);
 			$("#timer").hide();
-			// var roundButton = $("<button>");
-			// roundButton.text('Play next round?')
-			// $("#game-message").append(roundButton);
+			var roundButton = $("<button>");
+			roundButton.text('Play next round?')
+			$("#game-message").append(roundButton);
+			
 			}	
 		});
     });	 
 };
 
-// run functions
+
+
+//run functions
 start();
 displayGame();
 
