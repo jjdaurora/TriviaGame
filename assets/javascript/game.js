@@ -1,97 +1,105 @@
-//create object of all game answers
+//create object of all game questions and answers
 
 var triviaQuestions = [
 
 	{
-		question: "What am I doing?",
-		answers: ["This is a question.", "This is a question-2.", "This is a question-3.", "This is a question-4."],
-		correct: "This is a question-2." 
+		question: "What am I even doing?",
+		answers: ["This is an answer-1.", "This is an answer-2.", "This is an answer-3", "This is answer-4."],
+		correct: 0 
 	},
 
 	{
 		question: "Why are you bad at coding?",
-		answers: ["This is a question.", "This is a question-2.", "This is a question-3.", "This is a question-4."],
-		correct: "This is a question-2."
+		answers: ["This is an answer-1.", "This is an answer-2.", "This is an answer-3", "This is answer-4."],
+		correct: 1
+	},
+
+	{
+		question: "Why are you good at coding?",
+		answers: ["This is an answer-1.", "This is an answer-2.", "This is an answer-3", "This is answer-4."],
+		correct: 2
+	},
+
+	{
+		question: "Why do you even code?",
+		answers: ["This is an answer-1.", "This is an answer-2.", "This is an answer-3", "This is answer-4."],
+		correct: 0
 	}]
 
 
-// var questionThree {
+// var game = {
 
-// // 	question:
-// // 	a:
-// // 	b:
-// // 	c:
-// // 	d:
-// // 	correct:
-// // }
+// 	correct: 0,
+// 	incorrect: 0,
+// 	timer: 0,
+// 	counter: 2,
 
-// // var questionFour {
-	
-// // 	question:
-// // 	a:
-// // 	b:
-// // 	c:
-// // 	d:
-// // 	correct:
-// // } 
+// }
 
-// // var questionFive {
-
-// // 	question:
-// // 	a:
-// // 	b:
-// // 	c:
-// // 	d:
-// // 	correct:
-// // }
 var timer;
-var counter = 2;
+var counter = 10;
+
 // on-click event to start game 
 
-
 function start (){
-	$("#start-button").on('click', function () {
+	$("#game-button").one('click', function () {
+	$(this).hide();
+	$("#timer").html(counter);
 	 timer = setInterval(function () { 
-		$("#timer").html(counter);
+	 	// ISSUE: counter is actually taking 2 seconds on the first increment down
+	 	$("#timer").html(counter);
 		counter--;
+	
+	 	if (counter <= 0) {
+				$("#timer").html("Time's up!");
+			} 
+
 		if (counter < 0) {
 			clearInterval(timer);
-		}},   1000) 
+		}},   1000)	
+	});
+};
+
+function displayGame () { 
+
+    $("#game-button").on('click', function () {
 	$("#game-center").append(triviaQuestions[0].question);
+	var answersArray = triviaQuestions[0].answers;
+	var buttonsArray = [];
+
 	for (var i = 0; i < triviaQuestions[0].answers.length; i++) {
-		$("#game-center").append("<input type='radio' name=question-" + i + " value='" + triviaQuestions[0].answers[i] + "'>" + triviaQuestions[0].answers[i] );	
+		var button = $("<button>");
+		button.text(answersArray[i]);
+		button.attr("data-id", i);
+		$("#game-message").append(button);
+		}
+	
+		 $('#game-message').on('click', 'button', function(e){
+		 userPick = $(this).data("id");
+		 triviaQuestions[0].correct;
 
-			if (counter === 0) {
-				$("#game-message").text("Loser.");
-			}  
+			if(userPick != triviaQuestions[0].correct) {
+			$('#game-message').text("Wrong Answer!");
+			clearInterval(counter);
+			$("#timer").hide();
+			// var roundButton = $("<button>"); 
+			// roundButton.attr("id", "round-button");
+			// $("#round-button").html(roundButton);
+			}
 
-		}	
-	})
-}
+			else if (userPick === triviaQuestions[0].correct) {
+			$('#game-message').text("Correct!");
+			clearInterval(counter);
+			$("#timer").hide();
+			// var roundButton = $("<button>");
+			// roundButton.text('Play next round?')
+			// $("#game-message").append(roundButton);
+			}	
+		});
+    });	 
+};
 
-
-$.each($("input[name='question-2']:checked"), function() {
-	console.log(test);
-	if ($(this).val() === triviaQuestions[0].correct){
-		$("#game-message").text("Correct");
-	}
-		
-});
-
- 
+// run functions
 start();
+displayGame();
 
-
-// post questions
-
- // var int = setInterval(function () {
- //        document.getElementById("displayDiv").innerHTML = "Number: " + i;
- //        i-- || clearInterval(int);  //if i is 0, then stop the interval
- //    }, 1000);
-
-// answer questions
-
-
-// function that posts a question and loops through questions as they are answered
-
-//answer logic
